@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Traffic Example for VOC</title>
+	<script src="../bower_components/underscore/underscore.js"></script>
+        <script src="../bower_components/underscore-fix/underscore-fix.js"></script>
+	<script src="./bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="../voc.js"></script>
+	<style>
+          #sidewalk { width: 100%; height: 14px;}
+	  #road { width: 100%; background: #E3E3E3; height: 14px;}
+	  .car {position: absolute; margin-top:2px; background: yellow; width: 20px; height: 10px;}
+	  .bl  {position: absolute; left: 0; width: 4px; height: 4px;}
+	  .bll {top: 0;}
+	  .blr {bottom: 0;}
+	  .car.braking .bl {background: red;}
+	  #info {margin: 10px auto; background: #C7D298; width: 90%; padding: 10px; text-align: center;}
+
+          .traffic-light {
+            position: absolute; background: #555555; padding: 2px;
+          }
+          .tl {float: left; width: 10px; height: 10px;}
+          .traffic-light.green .tl-green { background: #A4C520 }
+          .traffic-light.green .tl-red   { background: #555555 }
+          .traffic-light.red   .tl-green { background: #555555 }
+          .traffic-light.red   .tl-red   { background: #DA5019 }
+	</style>
+</head>
+
+<body>
+  <div id="sidewalk"></div>
+  <div id="road">
+    <!-- cars -->
+  </div>
+
+  <script type="text/template" id="car-template">
+    <div id="{{id}}" class="car">
+      <div class="bl bll"></div>
+      <div class="bl blr"></div>
+    </div>
+  </script>
+
+  <script type="text/template" id="light-template">
+    <div id="{{id}}" class="traffic-light" style="left:{{x}}px">
+      <div class="tl tl-green"></div>
+      <div class="tl tl-red"></div>
+    </div>
+  </script>
+
+  <script src="traffic.js"></script>
+</body>
+</html>
