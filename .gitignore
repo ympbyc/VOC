@@ -1,3 +1,8 @@
-bower_components
+/bower_components/underscore/*
+/bower_components/underscore-fix/*
+/examples/bower_components/jquery/*
+!/bower_components/underscore/underscore.js
+!/bower_components/underscore-fix/underscore-fix.js
+!/examples/bower_components/jquery/jquery.min.js
 .\#*
 .DS_Store
