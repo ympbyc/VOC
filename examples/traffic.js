@@ -1,13 +1,16 @@
 var U = VOC.utils;
-var space = new VOC.Space();
+var space = new VOC.Space(); //entire scene
 
 
+//sight that is directed toward positive direction on x axis
 function frontSight (addr, distance) {
     return U.directedSight(addr, "x", distance, 5);
 };
 
 
+//make a visual for a car and initialize its AI
 function makeCar (address, speed, id) {
+    //visual for a car
     var visual = new VOC.Visual({
         recognized_as: "car",
         address: address,
@@ -15,8 +18,15 @@ function makeCar (address, speed, id) {
         id: id
     });
 
+    /* AI for a car
+     * Brakes when:
+     * + red lights within 50m
+     * + any braking cars within 50m
+     * + get too close to the car in front
+     * Accelerates otherwise
+     */
     setInterval(function () {
-        var v = visual.deref();
+        var v = visual.deref(); //current state of my visual
 
         var vision = space.see(frontSight(v.address, 50));
 
@@ -46,7 +56,9 @@ function makeCar (address, speed, id) {
 
 
 
+//make a visual for a traffic light and initialize its AI
 function makeTrafficLight (address, green_length, red_length, id) {
+    //visual for a traffic light
     var visual = new VOC.Visual({
         address: address,
         color: "green",
@@ -54,6 +66,10 @@ function makeTrafficLight (address, green_length, red_length, id) {
         id: id
     });
 
+    /* AI for traffic lights
+     * Stay green for a while, then turn red
+     * Stay red for a while, then turn green
+     */
     function start_green () {
         visual.swap(_.flippar(_.merge, {color: "green"}));
         setTimeout(function () {
@@ -74,6 +90,7 @@ function makeTrafficLight (address, green_length, red_length, id) {
 }
 
 
+
 function always (x) { return true; }
 
 var light_opposite = {red: "green", green: "red"};
@@ -86,17 +103,20 @@ $(function () {
     var $sidewalk = $("#sidewalk");
     var road_width = $road.width();
 
+    //make a car and initialize its UI
     function makeVisibleCar (address, speed, id) {
         $(_.simplate(car_html_tmpl, {id: id})).appendTo($road);
         return new makeCar(address, speed, id);
     }
 
+    //make a traffic light and initialize its UI
     function makeVisibleLight (address, gl, rl, id) {
         $(_.simplate(light_html_tmpl, {id: id, x: address.x})).appendTo($sidewalk);
         return new makeTrafficLight(address, gl, rl, id);
     }
 
 
+    //put visuals into space
     space.place(makeVisibleLight(new VOC.Address(200, 3, 0), 1000, 1000, "light-a"));
     space.place(makeVisibleLight(new VOC.Address(400, 3, 0), 2000, 1000, "light-b"));
     space.place(makeVisibleLight(new VOC.Address(600, 3, 0), 1000, 3000, "light-c"));
@@ -106,11 +126,15 @@ $(function () {
     space.place(makeVisibleCar(new VOC.Address(80, 0, 0), 80, "car-c"));
     space.place(makeVisibleCar(new VOC.Address(120, 0, 0), 80, "car-d"));
 
-    console.log("start");
-    setInterval(function () {
-        var cars = space.see(always).filter(U.recognize("car"));
 
-        var lights = space.see(always).filter(U.recognize("traffic light"));
+    /* AI for the app
+     * Sees everything in space,
+     * Draw whatever it can onto the DOM
+     */
+    setInterval(function () {
+        var vision = space.see(always);
+        var cars   = vision.filter(U.recognize("car"));
+        var lights = vision.filter(U.recognize("traffic light"));
 
         cars.forEach(function (car) {
             var $car = $("#"+car.id);
