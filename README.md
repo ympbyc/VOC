@@ -20,21 +20,21 @@ How its Done in VOC
 -------------------
 
 + appearance is just a map (e.g. `{address: {x:0, y:0, z:0}, recognized_as "apple", mass: 5}`)
-+ `VOC.Visual` constructs a reference to object's appearance. Each visual has an address.
-+ `VOC.Visual#deref` retrieves a current appearance of the visual.
-+ `VOC.Visual#swap` changes the visual's current appearance.
-+ `VOC.Space` constructs the entire space where visuals live.
-+ `VOC.Space#see` retrieves an array of appearances one can see from one's address with one's sight.
++ `VOC.Visual(appearance)` constructs a reference to object's appearance. Appearance should have an address.
++ `VOC.Visual#deref()` retrieves a current appearance of the visual.
++ `VOC.Visual#swap(fn)` changes the visual's current appearance.
++ `VOC.Space()` constructs the entire space where visuals live.
++ `VOC.Space#see(sight)` retrieves an array of appearances one can see from one's address with one's sight.
 
 + Dumb objects (e.g. apple, chair) are expressed as Visuals.
-+ Each Intelligent object (e.g. robot, human, car w/ driver) is expressed as a Visual that have an associated infinite loop that for each iteration, sees what's around them, interpret the situation, and change its appearance
++ Each Intelligent object (e.g. robot, human, car w/ driver) is expressed as a Visual that have an associated infinite loop that for each iteration, sees what's around them, interprets the situation, and updates the visual.
 
 Expressive
 ----------
 
 VOC implements FVOP (Functional Vision Oriented Programming).  VOC is designed to work best with functional style programming practices.
 
-Looking to see if there are any red lights around me can be done as simple as the following code:
+For example, looking to see if there are any red lights around me can be done as simple as the following code:
 
 ```javascript
 vision = space.see(U.sight360(MYADDRESS, 30));  //retrieve everything within 30m
@@ -47,8 +47,8 @@ vision
 Demo
 ----
 
-Traffic Simulation: http://ympbyc.github.io/VOC/examples/traffic.html
-Source Code: https://github.com/ympbyc/VOC/blob/master/examples/traffic.js
++ Traffic Simulation: http://ympbyc.github.io/VOC/examples/traffic.html
++ Source Code: https://github.com/ympbyc/VOC/blob/master/examples/traffic.js
 
 
 Authors
