@@ -1,14 +1,10 @@
 var U = VOC.utils;
 var space = new VOC.Space();
 
-function frontSight (v, distance) {
-    return function (addr) {
-        var diff = addr.x - v.address.x;
-        return diff < distance && diff > 0
-            && U.distance(v.address.y, addr.y) < 5
-            && U.distance(v.address.z, addr.z) < 5;
-    };
-}
+
+function frontSight (addr, distance) {
+    return U.directedSight(addr, "x", distance, 5);
+};
 
 
 function makeCar (address, speed, id) {
@@ -22,7 +18,7 @@ function makeCar (address, speed, id) {
     setInterval(function () {
         var v = visual.deref();
 
-        var vision = space.see(frontSight(v, 50));
+        var vision = space.see(frontSight(v.address, 50));
 
         var red_light_p = vision
                 .filter(U.recognize("traffic light"))

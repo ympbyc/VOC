@@ -53,6 +53,8 @@ VOC._private.close_p = function close_p (addr1, addr2, distance) {
         && VOC.utils.distance(addr1.z, addr2.z) < distance;
 };
 
+VOC._private.other_axis = {x: ["y", "z"], y: ["x", "z"], z: ["x", "y"]};
+
 VOC.utils.getProp = function (key) {
     return function (x) { return x[key]; };
 };
@@ -78,3 +80,15 @@ VOC.utils.sight360 = function sight360 (address, distance) {
         return close_p(address, addr, distance);
     };
 };
+
+VOC.utils.directedSight = function directedSight (va, axis, distance, side_distance) {
+    return function (addr) {
+        var diff = addr[axis] - va[axis];
+        var oa = VOC._private.other_axis[axis];
+        return ((distance < 0)
+                ? diff > distance && diff < 0
+                : diff < distance && diff > 0)
+            && VOC.utils.distance(addr[oa[0]], addr[oa[0]]) < side_distance
+            && VOC.utils.distance(addr[oa[1]], addr[oa[1]]) < side_distance;
+    };
+}
