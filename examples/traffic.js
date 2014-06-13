@@ -72,16 +72,12 @@ function makeTrafficLight (address, green_length, red_length, id) {
      */
     function start_green () {
         visual.swap(_.flippar(_.merge, {color: "green"}));
-        setTimeout(function () {
-            start_red();
-        }, green_length);
+        setTimeout(start_red, green_length);
     }
 
     function start_red () {
         visual.swap(_.flippar(_.merge, {color: "red"}));
-        setTimeout(function () {
-            start_green();
-        }, red_length);
+        setTimeout(start_green, red_length);
     }
 
     start_green();
