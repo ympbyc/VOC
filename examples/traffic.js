@@ -106,13 +106,13 @@ $(function () {
     //make a car and initialize its UI
     function makeVisibleCar (address, speed, id) {
         $(_.simplate(car_html_tmpl, {id: id})).appendTo($road);
-        return new makeCar(address, speed, id);
+        return makeCar(address, speed, id);
     }
 
     //make a traffic light and initialize its UI
     function makeVisibleLight (address, gl, rl, id) {
         $(_.simplate(light_html_tmpl, {id: id, x: address.x})).appendTo($sidewalk);
-        return new makeTrafficLight(address, gl, rl, id);
+        return makeTrafficLight(address, gl, rl, id);
     }
 
 
