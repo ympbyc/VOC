@@ -8,9 +8,12 @@ VOC.Space = function Space () {
 VOC.Space.prototype.place =  function place (visual) {
     this._space.push(visual);
 };
+VOC.Space.prototype.displace = function displace (visual) {
+    this._space = _.without(this._space, visual);
+};
 VOC.Space.prototype.see = function see (sight) {
     return this._space
-        .map(VOC.utils.callMethod("deref"))
+        .map(function (v) { return _.assoc(v.deref(), "_visual", v); })
         .filter(function (x) { return sight(x.address); });
 };
 
@@ -24,6 +27,7 @@ VOC.Ref.prototype.deref = function deref () {
 };
 VOC.Ref.prototype.swap = function deref (f) {
     this._state = f(this.deref());
+    return this;
 };
 
 
@@ -64,14 +68,18 @@ VOC.utils.callMethod = _.optarg(function (method, args) {
 });
 
 VOC.utils.propEq = function (key, val) {
-    return function (x) { return x[key] == val; };
+    return function (x) { return x[key] === val; };
+};
+
+VOC.utils.propEqual = function (key, val) {
+    return function (x) { return _.isEqual(x[key], val); };
 };
 
 VOC.utils.recognize = function (recognized_as) {
     return VOC.utils.propEq("recognized_as", recognized_as);
 };
 
-VOC.utils.distance = function diff (x, y) {
+VOC.utils.distance = function distance (x, y) {
     return Math.max(x, y) - Math.min(x, y);
 };
 
@@ -90,5 +98,14 @@ VOC.utils.directedSight = function directedSight (va, axis, distance, side_dista
                 : diff < distance && diff > 0)
             && VOC.utils.distance(addr[oa[0]], va[oa[0]]) < side_distance
             && VOC.utils.distance(addr[oa[1]], va[oa[1]]) < side_distance;
+    };
+};
+
+
+//dir :: (U "+x" "+y" "-x" "-y")
+VOC.utils.dir = function dir (direction) {
+    return {
+        op:   direction[0],
+        axis: direction[1]
     };
 };
