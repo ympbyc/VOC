@@ -77,7 +77,7 @@ VOC.utils.distance = function diff (x, y) {
 
 VOC.utils.sight360 = function sight360 (address, distance) {
     return function (addr) {
-        return close_p(address, addr, distance);
+        return VOC._private.close_p(address, addr, distance);
     };
 };
 
