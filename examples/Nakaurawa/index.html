@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Traffic Example for VOC</title>
+	<script src="bower_components/underscore/underscore.js"></script>
+        <script src="bower_components/underscore-fix/underscore-fix.js"></script>
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="../../voc.js"></script>
+        <style>
+          #town {
+            width: 1000px;
+            overflow: hidden;
+          }
+          #town .voc-view {
+            position: absolute;
+            text-align: center;
+          }
+          .road { background: #e3e3e3; font-size: 0.8em;}
+          .road.horizontal { height: 20px; }
+          .road.vertical { width: 20px;}
+          .station {
+            background: #E38692;
+            z-index: 5;
+            opacity: 0.7;
+          }
+          .rail {
+            height: 20px;
+            z-index: 4;
+            background: #F0BA32;
+          }
+          .building {background: #CFE283;}
+          .pedestrian {
+            background: #7379AE;
+            width: 5px; height: 5px; border-radius: 2px;
+          }
+          .train {
+            background: #3c3c3c;
+            width: 600px;
+            height: 30px;
+            opacity: 0.5;
+          }
+        </style>
+        <link rel="stylesheet" href="css/car.css" />
+        <link rel="stylesheet" href="css/traffic_light.css" />
+</head>
+
+<body>
+  <div id="town">
+    <div class="road horizontal voc-view"
+         style="width: 620px; left: 0; top: 10px">別所沼通り</div>
+    <div class="road vertical voc-view"
+         style="height: 700px; left: 50px; top: 10px">武蔵野線沿いの道</div>
+    <div class="road vertical voc-view"
+         style="height: 200px; width: 10px; left: 300px; top: 10px">うちの前の細道</div>
+    <div class="road vertical voc-view"
+         style="height: 700px; width: 30px; left: 620px; top: 10px">40号</div>
+    <div class="road horizontal voc-view"
+         style="width: 570px; left: 50px; top: 200px">東口の道</div>
+    <div class="road horizontal voc-view"
+         style="width: 570px; left: 50px; top: 400px">西口の道</div>
+    <div class="road horizontal voc-view"
+         style="width: 570px; left: 50px; top: 600px">西友の横の道</div>
+
+
+    <div class="station voc-view"
+         style="width: 600px; height: 50px; top: 280px; left: 0">
+      中浦和駅
+    </div>
+
+    <div class="rail voc-view"
+         style="width:1000px; height:10px; top:290px; left:0">
+      埼京線上り
+    </div>
+    <div class="rail voc-view"
+         style="width:1000px; height:10px; top:310px; left:0">
+      埼京線下り
+    </div>
+    <div class="rail voc-view"
+         style="height:800px; width:10px; top:0; left:5px">
+      武蔵野線
+    </div>
+
+    <div class="building voc-view"
+         style="height: 100px; width: 230px; top: 240px; left: 390px;">
+      プラザホテル
+    </div>
+    <div class="building voc-view"
+         style="height: 150px; width: 370px; top: 435px; left: 100px;">
+      西友
+    </div>
+    <div class="building voc-view"
+         style="height: 100px; width: 60px; top: 70px; left: 550px;">
+      萬店
+    </div>
+
+
+  </div>
+
+  <script type="text/template" id="car-template">
+    <div id="{{id}}" class="car voc-view">
+      <div class="bl bll"></div>
+      <div class="bl blr"></div>
+    </div>
+  </script>
+
+  <script type="text/template" id="light-template">
+    <div id="{{id}}" class="traffic-light voc-view">
+      <div class="tl tl-green"></div>
+      <div class="tl tl-red"></div>
+    </div>
+  </script>
+
+  <script type="text/template" id="pedestrian-template">
+    <div id="{{id}}" class="pedestrian voc-view"></div>
+  </script>
+
+  <script type="text/template" id="train-template">
+    <div id="{{id}}" class="train voc-view"></div>
+  </script>
+
+  <script src="js/car.js"></script>
+  <script src="js/traffic_light.js"></script>
+  <script src="js/intersection.js"></script>
+  <script src="js/pedestrian.js"></script>
+  <script src="js/train.js"></script>
+  <script src="js/town.js"></script>
+</body>
+</html>
