@@ -1,0 +1,22 @@
+{
+  "name": "underscore-fix",
+  "main": "underscore-fix.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "underscore": "~1.4.4"
+  },
+  "homepage": "https://github.com/ympbyc/underscore-fix",
+  "_release": "b56afe1d05",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "b56afe1d05e66bafb7057f4dfe2b7a93e33ffc87"
+  },
+  "_source": "git://github.com/ympbyc/underscore-fix.git",
+  "_target": "*",
+  "_originalSource": "git://github.com/ympbyc/underscore-fix.git"
+}

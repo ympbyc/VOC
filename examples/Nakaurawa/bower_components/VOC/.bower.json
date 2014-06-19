@@ -1,0 +1,38 @@
+{
+  "name": "VOC",
+  "main": "VOC.js",
+  "authors": [
+    "ympbyc <ympbyc@gmail.com>"
+  ],
+  "description": "Vision Oriented Programming Framework",
+  "keywords": [
+    "Vision",
+    "Visual",
+    "Object",
+    "VOC",
+    "VOP"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "underscore": "~1.6.0",
+    "underscore-fix": "git://github.com/ympbyc/underscore-fix.git"
+  },
+  "homepage": "https://github.com/ympbyc/VOC",
+  "_release": "c535bb1f14",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "c535bb1f141b06150e884dd0bf5c9d946dd23e5a"
+  },
+  "_source": "https://github.com/ympbyc/VOC.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/ympbyc/VOC.git"
+}

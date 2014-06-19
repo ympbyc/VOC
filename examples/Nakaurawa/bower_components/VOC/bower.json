@@ -1,0 +1,29 @@
+{
+  "name": "VOC",
+  "main": "VOC.js",
+  "version": "0.0.0",
+  "authors": [
+    "ympbyc <ympbyc@gmail.com>"
+  ],
+  "description": "Vision Oriented Programming Framework",
+  "keywords": [
+    "Vision",
+    "Visual",
+    "Object",
+    "VOC",
+    "VOP"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "underscore": "~1.6.0",
+    "underscore-fix": "git://github.com/ympbyc/underscore-fix.git"
+  }
+}

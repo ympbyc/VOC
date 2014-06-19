@@ -1,0 +1,20 @@
+.traffic-light {
+    position: absolute;
+    background: #555555;
+    padding: 2px;
+}
+
+.traffic-light.vertical {
+    width: 10px;
+}
+
+.traffic-light .tl {
+    float: left;
+    width: 10px;
+    height: 10px;
+}
+
+.traffic-light.green .tl-green { background: #A4C520 }
+.traffic-light.green .tl-red   { background: #555555 }
+.traffic-light.red   .tl-green { background: #555555 }
+.traffic-light.red   .tl-red   { background: #DA5019 }
