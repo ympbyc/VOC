@@ -88,7 +88,7 @@ VOC.utils.directedSight = function directedSight (va, axis, distance, side_dista
         return ((distance < 0)
                 ? diff > distance && diff < 0
                 : diff < distance && diff > 0)
-            && VOC.utils.distance(addr[oa[0]], addr[oa[0]]) < side_distance
-            && VOC.utils.distance(addr[oa[1]], addr[oa[1]]) < side_distance;
+            && VOC.utils.distance(addr[oa[0]], va[oa[0]]) < side_distance
+            && VOC.utils.distance(addr[oa[1]], va[oa[1]]) < side_distance;
     };
-}
+};
