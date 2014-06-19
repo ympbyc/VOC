@@ -1,0 +1,31 @@
+.car {
+    position: absolute;
+    margin-top:2px;
+    background: yellow;
+    width: 20px;
+    height: 10px;
+}
+
+.car.vertical {
+    width: 10px;
+    height: 20px;
+}
+
+.car .bl  {
+    position: absolute;
+    left: 0;
+    width: 4px;
+    height: 4px;
+}
+.car.flipped .bl {left: auto; right: 0; }
+
+.car .bll { top: 0; }
+.car .blr { bottom: 0; }
+
+
+.car.vertical .bl  { top: 0; left: auto; }
+.car.vertical.flipped .bl {top: auto; bottom: 0}
+.car.vertical .bll { right: 0; }
+.car.vertical .blr { left: 0; }
+
+.car.braking .bl { background: red; }

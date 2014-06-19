@@ -8,9 +8,12 @@ VOC.Space = function Space () {
 VOC.Space.prototype.place =  function place (visual) {
     this._space.push(visual);
 };
+VOC.Space.prototype.displace = function displace (visual) {
+    this._space = _.without(this._space, visual);
+};
 VOC.Space.prototype.see = function see (sight) {
     return this._space
-        .map(VOC.utils.callMethod("deref"))
+        .map(function (v) { return _.assoc(v.deref(), "_visual", v); })
         .filter(function (x) { return sight(x.address); });
 };
 
@@ -24,6 +27,7 @@ VOC.Ref.prototype.deref = function deref () {
 };
 VOC.Ref.prototype.swap = function deref (f) {
     this._state = f(this.deref());
+    return this;
 };
 
 
@@ -53,6 +57,8 @@ VOC._private.close_p = function close_p (addr1, addr2, distance) {
         && VOC.utils.distance(addr1.z, addr2.z) < distance;
 };
 
+VOC._private.other_axis = {x: ["y", "z"], y: ["x", "z"], z: ["x", "y"]};
+
 VOC.utils.getProp = function (key) {
     return function (x) { return x[key]; };
 };
@@ -62,19 +68,44 @@ VOC.utils.callMethod = _.optarg(function (method, args) {
 });
 
 VOC.utils.propEq = function (key, val) {
-    return function (x) { return x[key] == val; };
+    return function (x) { return x[key] === val; };
+};
+
+VOC.utils.propEqual = function (key, val) {
+    return function (x) { return _.isEqual(x[key], val); };
 };
 
 VOC.utils.recognize = function (recognized_as) {
     return VOC.utils.propEq("recognized_as", recognized_as);
 };
 
-VOC.utils.distance = function diff (x, y) {
+VOC.utils.distance = function distance (x, y) {
     return Math.max(x, y) - Math.min(x, y);
 };
 
 VOC.utils.sight360 = function sight360 (address, distance) {
     return function (addr) {
-        return close_p(address, addr, distance);
+        return VOC._private.close_p(address, addr, distance);
+    };
+};
+
+VOC.utils.directedSight = function directedSight (va, axis, distance, side_distance) {
+    return function (addr) {
+        var diff = addr[axis] - va[axis];
+        var oa = VOC._private.other_axis[axis];
+        return ((distance < 0)
+                ? diff > distance && diff < 0
+                : diff < distance && diff > 0)
+            && VOC.utils.distance(addr[oa[0]], va[oa[0]]) < side_distance
+            && VOC.utils.distance(addr[oa[1]], va[oa[1]]) < side_distance;
+    };
+};
+
+
+//dir :: (U "+x" "+y" "-x" "-y")
+VOC.utils.dir = function dir (direction) {
+    return {
+        op:   direction[0],
+        axis: direction[1]
     };
 };
